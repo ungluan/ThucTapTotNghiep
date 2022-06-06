@@ -17,6 +17,10 @@
 package com.example.androidkotlinfinal.navigation
 
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.androidkotlinfinal.R
 import com.example.androidkotlinfinal.features.home.HomeFragment
 import com.example.androidkotlinfinal.features.userdetail.UserDetailFragment
@@ -26,16 +30,9 @@ import javax.inject.Inject
  * Navigator implementation.
  */
 class AppNavigatorImpl @Inject constructor(private val activity: FragmentActivity) : AppNavigator {
-
-    override fun navigateTo(screen: Screens) {
-        val fragment = when (screen) {
-            Screens.HOME -> HomeFragment()
-            Screens.USER_DETAIL -> UserDetailFragment()
-        }
-
-        activity.supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, fragment)
-            .addToBackStack(fragment::class.java.canonicalName)
-            .commit()
+    override fun getNaveHostFragment(): NavController {
+        val navHostFragment =
+            activity.supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        return navHostFragment.navController
     }
 }

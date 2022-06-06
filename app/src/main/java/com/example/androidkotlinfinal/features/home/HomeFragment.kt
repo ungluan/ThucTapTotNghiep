@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.androidkotlinfinal.R
 import com.example.androidkotlinfinal.databinding.FragmentHomeBinding
 import com.example.androidkotlinfinal.domain.User
+import com.example.androidkotlinfinal.navigation.AppNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -19,6 +21,9 @@ import javax.inject.Inject
  ***/
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+
+    @Inject lateinit var navigator: AppNavigator
+
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
 
@@ -56,6 +61,6 @@ class HomeFragment : Fragment() {
 
     private fun navigateToUserDetailFragment(user: User) {
         val action = HomeFragmentDirections.actionHomeFragmentToUserDetailFragment(user)
-        findNavController().navigate(action)
+        navigator.getNaveHostFragment().navigate(action)
     }
 }
