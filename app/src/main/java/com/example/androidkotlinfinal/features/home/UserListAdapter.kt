@@ -41,7 +41,7 @@ class DiffCallback : DiffUtil.ItemCallback<User>() {
     }
 
     override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-        return oldItem == newItem
+        return oldItem.avatarUrl == newItem.avatarUrl && oldItem.name == newItem.name
     }
 }
 
