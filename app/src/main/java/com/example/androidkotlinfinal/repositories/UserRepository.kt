@@ -4,13 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.androidkotlinfinal.common.Config.AFTER_ID_DEFAULT
 import com.example.androidkotlinfinal.common.Config.PAGE_SIZE
+import com.example.androidkotlinfinal.database.entities.DatabaseUser
 import com.example.androidkotlinfinal.database.entities.asDomainModel
 import com.example.androidkotlinfinal.domain.User
 import com.example.androidkotlinfinal.network.dto.asDatabaseModel
 import com.example.androidkotlinfinal.network.services.local.UserLocalService
 import com.example.androidkotlinfinal.network.services.remote.UserRemoteService
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -22,7 +25,6 @@ class UserRepository @Inject constructor(
     private val userLocalService: UserLocalService,
     private val userRemoteService: UserRemoteService
 ) {
-
     val users: LiveData<List<User>> =
         Transformations.map(userLocalService.getUsers()) { databaseUsers ->
             databaseUsers.asDomainModel()
@@ -35,6 +37,16 @@ class UserRepository @Inject constructor(
         return userDatabase.asDomainModel()
     }
 
+    // If try catch, when
+    suspend fun getUser(login: String): User {
+        return withContext(Dispatchers.IO){
+            val networkUser = userRemoteService.getUser(login)
+            userLocalService.insertUser(networkUser.asDatabaseModel())
+            val userDatabase = userLocalService.getUserDetail(login)
+            userDatabase.asDomainModel()
+        }
+    }
+
     suspend fun refreshUsers() {
         try {
             withContext(Dispatchers.IO) {
@@ -44,6 +56,7 @@ class UserRepository @Inject constructor(
                     pageSize = PAGE_SIZE
                 )
                 Timber.d("ListUser: $networkUsers")
+                Timber.d("ListUserSize: ${networkUsers.size}")
                 userLocalService.insertUsers(networkUsers.asDatabaseModel())
                 Timber.d("Wrote ListUser to Database")
             }
@@ -54,19 +67,19 @@ class UserRepository @Inject constructor(
         }
     }
 
-    suspend fun getUserNetwork(login: String) {
-        try {
-            withContext(Dispatchers.IO){
-                Timber.d("Start getUserNetwork At: ${Calendar.getInstance().time} ,${Thread.currentThread().name}")
-                val networkUser = userRemoteService.getUser(login)
-                Timber.d("User: $networkUser")
-                userLocalService.insertUser(networkUser.asDatabaseModel())
-                Timber.d("Wrote User to Database")
-            }
-        } catch (e: Exception) {
-            Timber.d("GetUserNetwork failed: ${e.message}")
-        } finally {
-            Timber.d("Finished Refresh User At: ${Calendar.getInstance().time} ,${Thread.currentThread().name}")
-        }
-    }
+//    suspend fun getUserNetwork(login: String) {
+//        try {
+//            withContext(Dispatchers.IO){
+//                Timber.d("Start getUserNetwork At: ${Calendar.getInstance().time} ,${Thread.currentThread().name}")
+//                val networkUser = userRemoteService.getUser(login)
+//                Timber.d("User: $networkUser")
+//                userLocalService.insertUser(networkUser.asDatabaseModel())
+//                Timber.d("Wrote User to Database")
+//            }
+//        } catch (e: Exception) {
+//            Timber.d("GetUserNetwork failed: ${e.message}")
+//        } finally {
+//            Timber.d("Finished Refresh User At: ${Calendar.getInstance().time} ,${Thread.currentThread().name}")
+//        }
+//    }
 }

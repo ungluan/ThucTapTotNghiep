@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidkotlinfinal.databinding.UserItemBinding
 import com.example.androidkotlinfinal.domain.User
+import javax.inject.Inject
 
 
-class UserListAdapter(private val onClickListener: OnClickListener) :
+class UserListAdapter (private val onClickListener: OnClickListener) :
     ListAdapter<User, UserListAdapter.ViewHolder>(DiffCallback()) {
     class ViewHolder(val binding: UserItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
@@ -43,7 +44,9 @@ class DiffCallback : DiffUtil.ItemCallback<User>() {
         return oldItem == newItem
     }
 }
-
+/**
+ * clickListener là 1 function vậy thì làm sao inject cái funtion này
+ * */
 class OnClickListener(private val clickListener: (User: User) -> Unit) {
     fun onClick(user: User) = clickListener(user)
 }

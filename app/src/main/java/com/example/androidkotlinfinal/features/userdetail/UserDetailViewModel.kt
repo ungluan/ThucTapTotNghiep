@@ -29,11 +29,11 @@ class UserDetailViewModel @Inject constructor(
 
     private fun setup() {
         viewModelScope.launch {
-            if (data.name == null) {
-                userRepository.getUserNetwork(data.login)
-            }
-            val userDatabase = userRepository.getUserDatabase(data.login)
-            _user.value = userDatabase
+//            if (data.name == null) {
+//                userRepository.getUserNetwork(data.login)
+//            }
+            val userDetail = userRepository.getUser(data.login)
+            _user.value = userDetail
             _isSuccess.value = true
         }
     }

@@ -29,9 +29,7 @@ class HomeViewModel @Inject constructor(
     fun refresherUser() {
         viewModelScope.launch {
             userRepository.refreshUsers()
-            withContext(Dispatchers.Main) {
-                _isCompletedRefresh.value = true
-            }
+            _isCompletedRefresh.value = true
         }
     }
 }
