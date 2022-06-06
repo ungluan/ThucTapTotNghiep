@@ -20,7 +20,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "ACCESS_TOKEN", "\"${ACCESS_TOKEN}\""
+        buildConfigField "String", "ACCESS_TOKEN", "\"${properties.get("ACCESS_TOKEN")}\""
+
     }
 
     buildTypes {

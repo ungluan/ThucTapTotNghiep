@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
 
         binding.viewModel = this.viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.recyclerView.adapter = UserListAdapter(OnClickListener { user ->
             navigateToUserDetailFragment(user)
         })
