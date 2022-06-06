@@ -5,6 +5,7 @@ import com.example.androidkotlinfinal.domain.User
 import com.example.androidkotlinfinal.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -12,6 +13,12 @@ class UserDetailViewModel @Inject constructor(
     private val state: SavedStateHandle,
     private val userRepository: UserRepository
 ) : ViewModel() {
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Timber.d("Error: ${throwable.message}")
+    }
+
+    private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob() + exceptionHandler)
 
     private val data: User = state["user"]!!
 
@@ -23,18 +30,19 @@ class UserDetailViewModel @Inject constructor(
     val isSuccess: LiveData<Boolean>
         get() = _isSuccess
 
-    init {
-        setup()
-    }
 
-    private fun setup() {
+    fun setup() {
         viewModelScope.launch {
-//            if (data.name == null) {
-//                userRepository.getUserNetwork(data.login)
-//            }
-            val userDetail = userRepository.getUser(data.login)
-            _user.value = userDetail
-            _isSuccess.value = true
+            scope.launch {
+                Timber.d("Begin call user")
+                userRepository.getUserNetwork(data.login)
+                Timber.d("Finished call user")
+            }.join()
+            scope.launch {
+                Timber.d("Begin get user")
+                _user.postValue(userRepository.getUserDetail(data.login))
+                _isSuccess.postValue(true)
+            }
         }
     }
 }

@@ -6,17 +6,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.androidkotlinfinal.databinding.FragmentUserDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class UserDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentUserDetailBinding
     private val viewModel by viewModels<UserDetailViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.setup()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,14 +47,15 @@ class UserDetailFragment : Fragment() {
         }
 
         binding.txtGithub.setOnClickListener {
-            browerUrl(viewModel.user.value?.htmlUrl)
+            browserUrl(viewModel.user.value?.htmlUrl)
         }
         binding.txtBlog.setOnClickListener {
-            browerUrl(viewModel.user.value?.blog)
+            browserUrl(viewModel.user.value?.blog)
         }
+
     }
 
-    private fun browerUrl(url: String?) {
+    private fun browserUrl(url: String?) {
         url?.let {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
