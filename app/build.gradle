@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.androidkotlinfinal"
-        minSdk 30
+        minSdk 21
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -105,4 +105,5 @@ dependencies {
     implementation("com.google.dagger:hilt-android:${hilt_version}")
     kapt("com.google.dagger:hilt-android-compiler:${hilt_version}")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    // google-play-location
 }

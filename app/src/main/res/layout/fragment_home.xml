@@ -9,24 +9,11 @@
             type="com.example.androidkotlinfinal.features.home.HomeViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_raw_data"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/accelelation_data_item"
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".features.home.HomeFragment">
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:listDataUser="@{viewModel.listUser}"
-                tools:listitem="@layout/user_item" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    </FrameLayout>
+        android:layout_height="match_parent"/>
 </layout>

@@ -9,15 +9,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.androidkotlinfinal.R
 import com.example.androidkotlinfinal.domain.User
-import com.example.androidkotlinfinal.features.home.UserListAdapter
 import com.makeramen.roundedimageview.RoundedImageView
 
-@BindingAdapter("listDataUser")
-fun RecyclerView.setListDataUser(users: List<User>?) {
-    users?.let {
-        (adapter as UserListAdapter).submitList(users)
-    }
-}
+//@BindingAdapter("listDataUser")
+//fun RecyclerView.setListDataUser(users: List<User>?) {
+//    users?.let {
+//        (adapter as UserListAdapter).submitList(users)
+//    }
+//}
 
 @BindingAdapter("imageUrl")
 fun RoundedImageView.setImageUrl(imgUrl: String?) {

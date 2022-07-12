@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.androidkotlinfinal.common.Config.DATABASE_NAME
 import com.example.androidkotlinfinal.database.AppDatabase
-import com.example.androidkotlinfinal.database.dao.UserDao
+import com.example.androidkotlinfinal.database.dao.AccelerationDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +27,7 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideUserDao(database: AppDatabase): UserDao{
-        return database.userDao
+    fun provideAccelerationDao(database: AppDatabase): AccelerationDao{
+        return database.accelerationDao
     }
 }

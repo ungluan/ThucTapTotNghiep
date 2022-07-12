@@ -18,12 +18,8 @@ package com.example.androidkotlinfinal.navigation
 
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.androidkotlinfinal.R
-import com.example.androidkotlinfinal.features.home.HomeFragment
-import com.example.androidkotlinfinal.features.userdetail.UserDetailFragment
 import javax.inject.Inject
 
 /**

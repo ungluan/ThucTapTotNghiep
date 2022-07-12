@@ -1,16 +1,13 @@
 package com.example.androidkotlinfinal.database
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.androidkotlinfinal.database.dao.UserDao
-import com.example.androidkotlinfinal.database.entities.DatabaseUser
-@Database(entities = [DatabaseUser::class], version = 4, exportSchema = false)
+import com.example.androidkotlinfinal.database.dao.AccelerationDao
+import com.example.androidkotlinfinal.database.entities.AccelerationData
+
+@Database(entities = [AccelerationData::class], version = 5, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-    abstract val userDao: UserDao
+    abstract val accelerationDao: AccelerationDao
 
 //    companion object{
 //        @Volatile
