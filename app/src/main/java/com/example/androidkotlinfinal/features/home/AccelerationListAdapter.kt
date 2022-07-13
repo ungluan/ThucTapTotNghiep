@@ -16,7 +16,7 @@ class AccelerationListAdapter :
     class RawDataViewHolder(private val binding: AccelelationDataItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(accelerationData: AccelerationData) {
-//            binding.acceleration = accelerationData
+            binding.acceleration = accelerationData
             binding.executePendingBindings()
         }
     }

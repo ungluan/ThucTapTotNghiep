@@ -23,11 +23,13 @@ object DatabaseModule {
             appContext,
             AppDatabase::class.java,
             DATABASE_NAME
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
-    fun provideAccelerationDao(database: AppDatabase): AccelerationDao{
+    fun provideAccelerationDao(database: AppDatabase): AccelerationDao {
         return database.accelerationDao
     }
 }

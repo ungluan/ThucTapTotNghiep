@@ -5,6 +5,7 @@ import com.example.androidkotlinfinal.database.entities.AccelerationData
 import com.example.androidkotlinfinal.repositories.AccelerationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -20,4 +21,16 @@ class HomeViewModel @Inject constructor(
     private val _accelerations = accelerationRepository.accelerations
     val accelerations: LiveData<List<AccelerationData>>
         get() = _accelerations
+
+    fun insertAccelerationData(accelerationData: AccelerationData){
+        viewModelScope.launch(exceptionHandler) {
+            accelerationRepository.insertAccelerationData(accelerationData)
+        }
+    }
+
+    fun deleteAllAcceleration(){
+        viewModelScope.launch(exceptionHandler) {
+            accelerationRepository.deleteAllAcceleration()
+        }
+    }
 }

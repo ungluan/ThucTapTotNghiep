@@ -44,3 +44,9 @@ fun TextView.setFormattedText(date: String?){
         text = context.getString(R.string.created_at,date.formatDate())
     }
 }
+@BindingAdapter("value")
+fun TextView.setValue(value: Float?){
+    value?.let {
+        text = value.toString()
+    }
+}

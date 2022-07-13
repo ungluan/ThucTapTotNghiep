@@ -10,8 +10,11 @@ import com.example.androidkotlinfinal.database.entities.AccelerationData
 @Dao
 interface AccelerationDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAcceleration(accelerationData: AccelerationData)
+    fun insertAcceleration(accelerationData: AccelerationData)
 
     @Query("Select * from acceleration_sensor")
     fun getAccelerations(): LiveData<List<AccelerationData>>
+
+    @Query("Delete from acceleration_sensor")
+    fun deleteAllAcceleration()
 }
