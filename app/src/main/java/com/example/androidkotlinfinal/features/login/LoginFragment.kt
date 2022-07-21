@@ -28,9 +28,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnLogin.setOnClickListener{
-            val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-            navigator.getNaveHostFragment().navigate(action)
-        }
+//        binding.btnLogin.setOnClickListener{
+//            val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+//            navigator.getNaveHostFragment().navigate(action)
+//        }
     }
 }

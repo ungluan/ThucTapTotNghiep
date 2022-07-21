@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity() {
 //        val navFragment =
 //            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navigator.getNaveHostFragment()
-        setupActionBarWithNavController(navController)
+//        setupActionBarWithNavController(navController)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+//    }
 }

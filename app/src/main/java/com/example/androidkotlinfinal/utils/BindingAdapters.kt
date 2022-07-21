@@ -1,5 +1,6 @@
 package com.example.androidkotlinfinal.utils
 
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -28,6 +29,13 @@ fun RoundedImageView.setImageUrl(imgUrl: String?) {
         ).into(this)
     }
 }
+//@BindingAdapter("enable")
+//fun Button.setEnable(isEnable: Boolean?){
+//    isEnable?.let {
+//        this.setEnable(isEnable)
+//    }
+//}
+
 @BindingAdapter("imageUrl")
 fun ImageView.setImageUrl(imgUrl: String?){
     imgUrl?.let {
